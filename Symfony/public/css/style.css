@@ -1,0 +1,164 @@
+/* Styles globaux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Styles de la barre de navigation */
+.footer-nav {
+    background-color: #333;
+    padding: 30px 0; /* Augmentez la valeur de padding pour agrandir la barre */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item a i {
+    font-size: 26px; /* Augmentez la taille des icônes */
+}
+
+
+.nav-text {
+    margin-top: 5px;
+}
+
+.nav-item a:hover {
+    text-decoration: underline;
+}
+
+
+/* PATIENT */
+
+    /* Styles pour l'entête */
+    .patient-title {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .patient-title h1 {
+        font-size: 24px;
+    }
+
+     /* Styles pour la barre de recherche */
+     .patient-search {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        max-width: 300px; /* Ajustez la largeur de la barre de recherche */
+        margin: 0 auto; /* Centre la barre de recherche horizontalement */
+    }
+
+    .icon-container {
+        background-color: #333; /* Couleur de fond plus claire */
+        padding: 10px;
+        border-radius: 4px 0 0 4px;
+        border: 1px solid #333; /* Ajoute une bordure */
+        border-right: none; /* Supprime la bordure droite */
+    }
+
+    .search-icon {
+        font-size: 16px;
+        color: white;
+    }
+  
+
+    .search-input {
+        flex: 1; /* L'input prend tout l'espace restant */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 0 4px 4px 0;
+        font-size: 16px;
+    }
+
+    /* Styles pour le bouton "Créer un patient" */
+    .patient-add {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .patient-add-link {
+        text-decoration: none; /* Supprime le soulignement par défaut */
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 0; /* Réduisez la hauteur du bouton si nécessaire */
+        width: 180px; /* Réduisez la largeur du bouton ici */
+        margin: 0 auto; /* Centre horizontalement le bouton */
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1.2; /* Ajoutez cette ligne pour centrer verticalement */
+    }
+
+    .patient-add-link i {
+        margin-right: 10px; /* Ajoute de l'espace entre l'icône et le texte */
+    }
+
+
+/* RETOUR */
+
+/* Styles pour centrer le texte du titre au milieu en haut de la page */
+.example-wrapper {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Styles pour l'icône de la flèche en haut à gauche */
+.back-link {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    color: #333;
+}
+
+.back-link i {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Styles pour le texte du titre centré */
+.centered-title {
+    font-size: 24px;
+    margin: 0;
+}
+
+
+
+
+
+

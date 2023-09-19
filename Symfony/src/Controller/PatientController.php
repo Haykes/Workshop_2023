@@ -16,6 +16,7 @@ class PatientController extends AbstractController
         ]);
     }
 
+    #[Route('/patient/add', name: 'app_patient_add')]
     public function add(): Response
     {
         return $this->render('patient/add.html.twig', [
@@ -23,6 +24,7 @@ class PatientController extends AbstractController
         ]);
     }
 
+    #[Route('/patient/view', name: 'app_patient_view')]
     public function view(): Response
     {
         return $this->render('patient/view.html.twig', [
