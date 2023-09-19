@@ -10,10 +10,30 @@ app_patient:
     path: /patient
     controller: App\Controller\PatientController::index
     
-app_patient:
+app_patient_add:
     path: /patient/add
     controller: App\Controller\PatientController::add
 
-app_patient:
+app_patient_view:
     path: /patient/view
     controller: App\Controller\PatientController::view
+
+app_add:
+    path: /add
+    controller: App\Controller\AddController::index
+    
+app_chat:
+    path: /chat
+    controller: App\Controller\ChatController::index
+
+app_tour:
+    path: /tour
+    controller: App\Controller\TourController::index
+
+app_transmission:
+    path: /transmission
+    controller: App\Controller\TransmissionController::index
+
+app_more:
+    path: /more
+    controller: App\Controller\MoreController::index
