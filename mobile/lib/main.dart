@@ -25,12 +25,10 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('WebView App'),
-      ),
+      appBar: AppBar(),
       body: WebView(
         initialUrl: serverUrl,
-        javascriptMode: JavaScriptMode.unrestricted,
+        javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (WebViewController webViewController) {
           // Utilisé pour des interactions supplémentaires avec le WebView si nécessaire.
         },
