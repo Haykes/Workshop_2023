@@ -54,10 +54,14 @@ class Patients
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $information = null;
 
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Review::class)]
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->treatments = new ArrayCollection();
         $this->appointments = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,6 +257,36 @@ class Patients
     public function setInformation(?string $information): static
     {
         $this->information = $information;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getPatient() === $this) {
+                $review->setPatient(null);
+            }
+        }
 
         return $this;
     }
