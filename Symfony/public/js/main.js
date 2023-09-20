@@ -16,3 +16,11 @@ document.addEventListener('DOMContentLoaded', function () {
         searchForm.submit(); // Soumet le formulaire lorsque l'icône est cliquée
     });
 });
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(error) {
+        console.log('ServiceWorker registration failed: ', error);
+    });
+}

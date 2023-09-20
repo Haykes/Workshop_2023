@@ -37,3 +37,7 @@ app_transmission:
 app_more:
     path: /more
     controller: App\Controller\MoreController::index
+
+api_manifest:
+    path: /manifest.json
+    controller : App\Controller\PatientController::manifest
