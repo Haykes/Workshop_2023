@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const searchIconLink = document.getElementById('search-icon-link');
 
+    searchIconLink.addEventListener('click', function (e) {
+        e.preventDefault(); // Empêche le lien de naviguer vers une nouvelle page
+        searchForm.submit(); // Soumet le formulaire lorsque l'icône est cliquée
+    });
+});
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }).catch(function(error) {
+        console.log('ServiceWorker registration failed: ', error);
+    });
+}
     // Vérifiez si searchForm et searchInput existent avant d'ajouter les écouteurs d'événements
     if (searchForm && searchInput) {
         searchInput.addEventListener('keydown', function (e) {
@@ -20,4 +33,3 @@ document.addEventListener('DOMContentLoaded', function () {
             searchForm.submit(); // Soumet le formulaire lorsque l'icône est cliquée
         });
     }
-});
