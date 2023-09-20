@@ -39,9 +39,25 @@ class Patients
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Treatment::class)]
     private Collection $treatments;
 
+    #[ORM\Column]
+    private ?int $social_security_number = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $referring_doctor = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $pharmacy = null;
+
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Appointment::class)]
+    private Collection $appointments;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $information = null;
+
     public function __construct()
     {
         $this->treatments = new ArrayCollection();
+        $this->appointments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +175,84 @@ class Patients
                 $treatment->setPatient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSocialSecurityNumber(): ?int
+    {
+        return $this->social_security_number;
+    }
+
+    public function setSocialSecurityNumber(int $social_security_number): static
+    {
+        $this->social_security_number = $social_security_number;
+
+        return $this;
+    }
+
+    public function getReferringDoctor(): ?string
+    {
+        return $this->referring_doctor;
+    }
+
+    public function setReferringDoctor(string $referring_doctor): static
+    {
+        $this->referring_doctor = $referring_doctor;
+
+        return $this;
+    }
+
+    public function getPharmacy(): ?string
+    {
+        return $this->pharmacy;
+    }
+
+    public function setPharmacy(string $pharmacy): static
+    {
+        $this->pharmacy = $pharmacy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Appointment>
+     */
+    public function getAppointments(): Collection
+    {
+        return $this->appointments;
+    }
+
+    public function addAppointment(Appointment $appointment): static
+    {
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): static
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getPatient() === $this) {
+                $appointment->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getInformation(): ?string
+    {
+        return $this->information;
+    }
+
+    public function setInformation(?string $information): static
+    {
+        $this->information = $information;
 
         return $this;
     }
