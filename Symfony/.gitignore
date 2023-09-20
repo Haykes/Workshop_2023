@@ -10,3 +10,4 @@
 /vendor/
 .env
 ###< symfony/framework-bundle ###
+.php-version
