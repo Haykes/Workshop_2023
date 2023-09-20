@@ -1,3 +1,6 @@
+/* ********************************************************************** */
+/*                                    Global                              */
+/* ********************************************************************** */
 /* Styles globaux */
 body {
     font-family: Arial, sans-serif;
@@ -52,7 +55,9 @@ body {
 }
 
 
-/* PATIENT */
+/* ********************************************************************** */
+/*                                  PATIENT                               */
+/* ********************************************************************** */
 
     /* Styles pour l'entête */
     .patient-title {
@@ -129,12 +134,13 @@ body {
     }
 
 
-/* RETOUR */
+/* ********************************************************************** */
+/*                             Bouton Retour                              */
+/* ********************************************************************** */
 
 /* Styles pour centrer le texte du titre au milieu en haut de la page */
 .example-wrapper {
     text-align: center;
-    padding: 20px;
 }
 
 /* Styles pour l'icône de la flèche en haut à gauche */
@@ -159,6 +165,67 @@ body {
 
 
 
+/* ********************************************************************** */
+/*                             Patient ADD                                */
+/* ********************************************************************** */
 
+/* Styles pour la page d'ajout de patient */
+
+.centered-form {
+    width: 80%; /* Ajustez la largeur du formulaire selon vos préférences */
+    max-width: 400px; /* Ajustez la largeur maximale du formulaire selon vos préférences */
+    margin: 0 auto; /* Centre le formulaire horizontalement */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left; /* Alignez le texte du formulaire à gauche */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+}
+.form-row .form-group {
+    flex-basis: calc(50% - 10px); /* Divise l'espace en deux et laisse un petit espace entre les champs */
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+input[type="tel"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 100px; /* Ajustez la hauteur de la zone de texte selon vos préférences */
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block; /* Pour occuper toute la largeur du formulaire */
+    margin: 0 auto; /* Centre le bouton horizontalement */
+}
+
+button:hover {
+    background-color: #555; /* Couleur de fond au survol */
+}
 
 

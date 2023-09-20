@@ -41,3 +41,11 @@ app_more:
 api_manifest:
     path: /manifest.json
     controller : App\Controller\PatientController::manifest
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
