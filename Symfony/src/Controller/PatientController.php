@@ -15,8 +15,11 @@ class PatientController extends AbstractController
     #[Route('/patient', name: 'app_patient')]
     public function index(): Response
     {
+        $patients = $this->getDoctrine()->getRepository(Patients::class)->findAll();
+
         return $this->render('patient/index.html.twig', [
             'controller_name' => 'PatientController',
+            'patients' => $patients,
         ]);
     }
 
@@ -49,11 +52,65 @@ class PatientController extends AbstractController
         ]);
     }
 
-    #[Route('/patient/view', name: 'app_patient_view')]
-    public function view(): Response
+    #[Route('/patient/view/{id}', name: 'app_patient_view')]
+    public function view(int $id): Response
     {
+        $patient = $this->getDoctrine()->getRepository(Patients::class)->find($id);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('Patient non trouvé');
+        }
+
         return $this->render('patient/view.html.twig', [
             'controller_name' => 'PatientController',
+            'patient' => $patient,
         ]);
     }
+
+
+    #[Route('/patient/edit/{id}', name: 'app_patient_edit')]
+    public function edit(int $id, Request $request): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $patient = $entityManager->getRepository(Patients::class)->find($id);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('Patient introuvable');
+        }
+
+        $form = $this->createForm(PatientType::class, $patient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le patient a été modifié avec succès.');
+
+            return $this->redirectToRoute('app_patient');
+        }
+
+        return $this->render('patient/edit.html.twig', [
+            'form' => $form->createView(),
+            'patient' => $patient,
+        ]);
+    }
+
+    #[Route('/patient/delete/{id}', name: 'app_patient_delete')]
+    public function delete(int $id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $patient = $entityManager->getRepository(Patients::class)->find($id);
+
+        if (!$patient) {
+            throw $this->createNotFoundException('Patient introuvable');
+        }
+
+        $entityManager->remove($patient);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le patient a été supprimé avec succès.');
+
+        return $this->redirectToRoute('app_patient');
+    }
+
 }

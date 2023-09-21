@@ -1,14 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    <h1>Patient view</h1>
-{% endblock %}
-
 {% block body %}
     <div class="example-wrapper">
-        <a href="/patient" class="back-link">
+        <a href="/patient" class="back-link-white">
             <i class="fa-solid fa-chevron-left"></i>
         </a>
-        <h1 class="centered-title">Patient view</h1>
     </div>
+
+    <div class="patient-title">
+        <h1>Profil de {{ patient.firstname }} {{ patient.lastname }}</h1>
+    </div>
+
+    <div class="patient-details">
+        <p>Nom : {{ patient.lastname }}</p>
+        <p>Prénom : {{ patient.firstname }}</p>
+        <p>Email : {{ patient.email }}</p>
+        <p>Adresse : {{ patient.address }}</p>
+        <p>Code Postal : {{ patient.postcode }}</p>
+        <p>Ville : {{ patient.city }}</p>
+        <p>Informations supplémentaires : {{ patient.information }}</p>
+        <p>Téléphone : {{ patient.phone }}</p>
+        <!-- Ajoutez d'autres informations du patient ici -->
+
+        <!-- Boutons Modifier et Supprimer -->
+        <div class="patient-actions">
+            <a href="{{ path('app_patient_edit', { 'id': patient.id }) }}" class="btn-edit">Modifier</a>
+            <a href="{{ path('app_patient_delete', { 'id': patient.id }) }}" class="btn-edit">Supprimer</a>
+        </div>
+
+    </div>
+
 {% endblock %}

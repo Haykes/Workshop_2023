@@ -15,8 +15,23 @@ app_patient_add:
     controller: App\Controller\PatientController::add
 
 app_patient_view:
-    path: /patient/view
-    controller: App\Controller\PatientController::view
+    path: '/patient/view/{id}'
+    controller: 'App\Controller\PatientController::view'
+    requirements:
+        id: '\d+' # Contrainte pour l'ID du patient (chiffres uniquement)
+
+
+app_patient_edit:
+    path: '/patient/edit/{id}'
+    controller: 'App\Controller\PatientController::edit'
+    requirements:
+        id: '\d+' # Contrainte pour l'ID du patient (chiffres uniquement)
+
+app_patient_delete:
+    path: '/patient/delete/{id}'
+    controller: 'App\Controller\PatientController::delete'
+    requirements:
+        id: '\d+' # Contrainte pour l'ID du patient (chiffres uniquement)
 
 app_add:
     path: /add

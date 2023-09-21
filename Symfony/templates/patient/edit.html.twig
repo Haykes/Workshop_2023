@@ -1,17 +1,16 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
     <div class="example-wrapper">
         <a href="{{ path('app_patient') }}" class="back-link">
             <i class="fa-solid fa-chevron-left"></i>
         </a>
-        <h1>Nouveau patient</h1>
+        <h1>Modifier le patient {{ patient.lastname }} {{ patient.firstname }}</h1>
     </div>
 
 <div class="centered-form">
-    {{ form_start(form) }}
-   <div class="form-row">
+{{ form_start(form) }}
+ <div class="form-row">
         <div class="form-group">
             {{ form_label(form.lastname, 'Nom :') }}
             {{ form_widget(form.lastname, { 'attr': {'required': 'required'} }) }}
@@ -54,11 +53,9 @@
             {{ form_widget(form.phone) }}
         </div>
 
-        <div class="button-container-center">
-                <button type="submit" class="btn btn-primary">Ajouter Patient</button>
-        </div>
-
-    {{ form_end(form) }}
-</div>
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+        {{ form_end(form) }}
+    </div>
+    </div>
 
 {% endblock %}

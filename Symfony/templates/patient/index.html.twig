@@ -26,4 +26,16 @@
         </a>
     </div>
 
+    <div class="patient-list">
+        <ul>
+            {% for patient in patients %}
+                <li>
+                    <a href="{{ path('app_patient_view', { 'id': patient.id }) }}">
+                        {{ patient.firstname }} {{ patient.lastname }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}
