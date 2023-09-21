@@ -4,35 +4,25 @@ namespace App\Entity;
 
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type="integer")]
     private ?int $id = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="sentMessages")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity=User::class, inversedBy="sentMessages")]
+    #[ORM\JoinColumn(nullable=false)]
     private $sender;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="receivedMessages")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity=User::class, inversedBy="receivedMessages")]
+    #[ORM\JoinColumn(nullable=false)]
     private $receiver;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type="text")]
     private $content;
 
 

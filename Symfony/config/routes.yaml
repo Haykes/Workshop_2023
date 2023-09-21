@@ -64,3 +64,13 @@ app_login:
 app_logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
+
+chat_list:
+    path: /chat
+    controller: App\Controller\ChatController::index
+
+chat_detail:
+    path: /chat/{id}
+    controller: App\Controller\ChatController::detail
+    requirements:
+        id: '\d+'

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Chat Detail</h1>
+
+    <div>
+        <strong>From:</strong> {{ message.getSender().getUsername() }} <br>
+        <strong>To:</strong> {{ message.getReceiver().getUsername() }} <br>
+        <p>{{ message.getContent() }}</p>
+    </div>
+{% endblock %}
