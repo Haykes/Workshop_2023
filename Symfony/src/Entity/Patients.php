@@ -39,13 +39,13 @@ class Patients
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Treatment::class)]
     private Collection $treatments;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $social_security_number = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $referring_doctor = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $pharmacy = null;
 
     #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Appointment::class)]
