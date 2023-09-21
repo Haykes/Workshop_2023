@@ -50,6 +50,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'receiver', targetEntity: Transmission::class)]
     private Collection $transmissions;
 
+    /**
+ * @ORM\OneToMany(targetEntity=Message::class, mappedBy="sender")
+ */
+private $sentMessages;
+
+/**
+ * @ORM\OneToMany(targetEntity=Message::class, mappedBy="receiver")
+ */
+private $receivedMessages;
+
     public function __construct()
     {
         $this->transmissions = new ArrayCollection();
@@ -245,4 +255,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getSentMessages(): ?string
+    {
+        return $this->sentMessages;
+    }
+
+    public function setSentMessages(string $sentMessages): static
+    {
+        $this->sentMessages = $sentMessages;
+
+        return $this;
+    }
+    public function getReceivedMessages(): ?string
+    {
+        return $this->receivedMessages;
+    }
+
+    public function setReceivedMessages(string $receivedMessages): static
+    {
+        $this->receivedMessages = $receivedMessages;
+
+        return $this;
+    }
+
+
 }

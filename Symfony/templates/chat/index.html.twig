@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}<h1>Chat</h1>{% endblock %}
-
 {% block body %}
-    <div class="example-wrapper">
-        <h1>Chat</h1>
+<h1>Chat</h1>
+
+{# Afficher les messages #}
+{% for message in messages %}
+    <div>
+        <strong>{{ message.sender.email }}</strong>: {{ message.content }}
     </div>
+{% endfor %}
+
+{# Formulaire d'envoi de message #}
+{{ form_start(form) }}
+    {{ form_label(form.content) }}
+    {{ form_widget(form.content) }}
+
+    {{ form_label(form.receiver) }}
+    {{ form_widget(form.receiver) }}
+
+    <button type="submit">Envoyer</button>
+{{ form_end(form) }}
 {% endblock %}
