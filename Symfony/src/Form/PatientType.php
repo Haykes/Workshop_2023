@@ -18,6 +18,7 @@ class PatientType extends AbstractType
         $builder
         ->add('lastname', TextType::class)
         ->add('firstname', TextType::class)
+        ->add('email', TextType::class, ['label' => 'Email :','required' => true])
         ->add('address', TextType::class, ['required' => false]) // Champ facultatif
         ->add('postcode', TextType::class, ['required' => false]) 
         ->add('city', TextType::class, ['required' => false]) 
