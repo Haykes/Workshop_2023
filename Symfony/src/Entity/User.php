@@ -51,18 +51,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $transmissions;
 
     /**
- * @ORM\OneToMany(targetEntity=Message::class, mappedBy="sender")
- */
-private $sentMessages;
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="sender")
+     */
+    private $sentMessages;
 
-/**
- * @ORM\OneToMany(targetEntity=Message::class, mappedBy="receiver")
- */
-private $receivedMessages;
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="receiver")
+     */
+    private $receivedMessages;
 
     public function __construct()
     {
         $this->transmissions = new ArrayCollection();
+        $this->sentMessages = new ArrayCollection();
+        $this->receivedMessages = new ArrayCollection();
     }
 
     public function getId(): ?int

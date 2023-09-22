@@ -6,39 +6,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Message;
-use App\Form\MessageType;
-use Symfony\Component\HttpFoundation\Request;
-
+use App\Repository\MessageRepository;
 
 class ChatController extends AbstractController
 {
-    #[Route('/chat', name: 'app_chat')]
-    public function index(Request $request): Response
+    #[Route('/chat', name: 'chat_list')]
+    public function index(MessageRepository $messageRepository): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $messages = $messageRepository->findAll();
     
-        // Création d'un nouveau message
-        $message = new Message();
-        $message->setSender($this->getUser()); // Supposant que l'utilisateur actuel est connecté
-    
-        $form = $this->createForm(MessageType::class, $message);
-        $form->handleRequest($request);
-    
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($message);
-            $entityManager->flush();
-    
-            // Rediriger vers la même page pour éviter le rechargement du formulaire
-            return $this->redirectToRoute('app_chat');
-        }
-    
-        // Récupérer les messages pour l'affichage. Vous pouvez filtrer, paginer ou trier selon vos besoins.
-        $messages = $entityManager->getRepository(Message::class)->findBy([], ['id' => 'DESC']); 
-    
-        return $this->render('chat/index.html.twig', [
-            'form' => $form->createView(),
-            'messages' => $messages,
-        ]);
+        return $this->render('chat/list.html.twig', ['messages' => $messages]);
     }
     
+    #[Route('/chat/{id}', name: 'chat_detail')]
+    public function detail(int $id, MessageRepository $messageRepository): Response
+    {
+        $message = $messageRepository->find($id);
+        if (!$message) {
+            throw $this->createNotFoundException('Message not found');
+        }
+
+        return $this->render('chat/detail.html.twig', ['message' => $message]);
+    }
 }
