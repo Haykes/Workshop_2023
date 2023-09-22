@@ -1,15 +1,87 @@
+
 {% extends 'base.html.twig' %}
-
+{% block title %}Messagerie{% endblock %}
 {% block body %}
-    <h1>Messages</h1>
+    <div class="patient-title">
+        <h1>Messagerie</h1>
+    </div>
+    <div class="chat-list">
+    <a href="/chat/ok">
+        <div class="chat-item">
+            <img class="chat-avatar" src="/img/logo_1.png" alt="Avatar">
+            <div class="chat-details">
+                <div class="chat-name">Théo Saelens</div>
+                <div class="chat-last-message">Hey! Comment ca va?</div>
+            </div>
+            <div class="chat-time">12:30</div>
+        </div>
+        </a>
 
-    <ul>
-    {% for message in messages %}
-        <li>
-            <a href="{{ path('chat_detail', {'id': message.id}) }}">
-                From {{ message.getSender().getUsername() }} to {{ message.getReceiver().getUsername() }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+
+        <div class="chat-item">
+            <img class="chat-avatar" src="/img/logo_1.png" alt="Avatar">
+            <div class="chat-details">
+                <div class="chat-name">Jane Smith</div>
+                <div class="chat-last-message">Sent a photo</div>
+            </div>
+            <div class="chat-time">11:15</div>
+        </div>
+
+        <!-- Ajoutez d'autres éléments de chat ici -->
+    </div>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+.chat-list {
+    width: 100%;
+    max-width: 400px;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+}
+
+.chat-item:hover {
+    background-color: #e9e9e9;
+}
+
+.chat-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-details {
+    flex-grow: 1;
+}
+
+.chat-name {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.chat-last-message {
+    color: #555;
+    font-size: 0.9em;
+}
+
+.chat-time {
+    color: #999;
+    margin-left: 10px;
+}
+
+</style>
 {% endblock %}

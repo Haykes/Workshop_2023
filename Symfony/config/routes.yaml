@@ -70,7 +70,6 @@ chat_list:
     controller: App\Controller\ChatController::index
 
 chat_detail:
-    path: /chat/{id}
-    controller: App\Controller\ChatController::detail
-    requirements:
-        id: '\d+'
+    path: /chat/ok
+    controller: App\Controller\ChatController::details
+

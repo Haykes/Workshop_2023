@@ -10,22 +10,19 @@ use App\Repository\MessageRepository;
 
 class ChatController extends AbstractController
 {
-    #[Route('/chat', name: 'chat_list')]
-    public function index(MessageRepository $messageRepository): Response
+    #[Route('/chat', name: 'app_chat')]
+    public function index(): Response
     {
-        $messages = $messageRepository->findAll();
-    
-        return $this->render('chat/list.html.twig', ['messages' => $messages]);
+        return $this->render('chat/list.html.twig', [
+            'controller_name' => 'ChatController',
+        ]);
     }
-    
-    #[Route('/chat/{id}', name: 'chat_detail')]
-    public function detail(int $id, MessageRepository $messageRepository): Response
-    {
-        $message = $messageRepository->find($id);
-        if (!$message) {
-            throw $this->createNotFoundException('Message not found');
-        }
 
-        return $this->render('chat/detail.html.twig', ['message' => $message]);
+    #[Route('/chat/ok', name: 'app_detail')]
+    public function details(): Response
+    {
+        return $this->render('chat/detail.html.twig', [
+            'controller_name' => 'ChatController',
+        ]);
     }
 }
