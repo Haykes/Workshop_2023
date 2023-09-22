@@ -12,24 +12,29 @@ Suivez les étapes ci-dessous pour installer et lancer le projet.
 
 ## Étapes d'installation
 
-1. Ouvrez votre terminal et naviguez vers le répertoire du projet :
+1. Ouvrez votre terminal et naviguez vers le répertoire d'installation du projet :
+    ```bash
+    git clone https://github.com/Haykes/Workshop_2023.git
+    ```
+
+2. Aller dans le dossier du projet
     ```bash
     cd Symfony
     ```
 
-2. Installez les dépendances avec Composer :
+3. Installez les dépendances avec Composer :
     ```bash
     composer install
     ```
 
-3. Configurez et initialisez la base de données :
+4. Configurez et initialisez la base de données :
     ```bash
     php bin/console doctrine:database:create
     php bin/console make:migration
     php bin/console doctrine:migrations:migrate
     ```
 
-4. Lancez le serveur :
+5. Lancez le serveur :
     ```bash
     symfony server:start --no-tls --port=8000
     ```
