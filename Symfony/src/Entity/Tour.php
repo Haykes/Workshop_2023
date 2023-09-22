@@ -6,6 +6,7 @@ use App\Repository\TourRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Patients;
 
+
 #[ORM\Entity(repositoryClass: TourRepository::class)]
 class Tour
 {
@@ -31,16 +32,14 @@ class Tour
     #[ORM\Column(type: 'boolean')]
     private $isCompleted = false;
 
-
-    public function getDate(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(string $date): static
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
         return $this;
     }
     public function getPatient(): ?Patients

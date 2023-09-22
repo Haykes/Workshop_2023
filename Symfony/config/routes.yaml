@@ -36,6 +36,10 @@ app_patient_delete:
 app_add:
     path: /add
     controller: App\Controller\AddController::index
+
+app_add_tour:
+    path: /add/tour
+    controller: App\Controller\AddController::addTour
     
 app_chat:
     path: /chat
