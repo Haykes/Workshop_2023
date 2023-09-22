@@ -1,9 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}<h1>Tour</h1>{% endblock %}
+{% block title %}Tour{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
-        <h1>Tour</h1>
-    </div>
+<div class="patient-title">
+    <h1>Liste des tournées pour {{ currentDate|date('Y-m-d') }}</h1>
+    <a href="{{ path('app_tour', { date: currentDate|date_modify('-1 day')|date('Y-m-d') }) }}">Jour précédent</a>
+    <a href="{{ path('app_tour', { date: currentDate|date_modify('+1 day')|date('Y-m-d') }) }}">Jour suivant</a>
+</div>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px 12px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Heure du RDV</th>
+            <th>Complété</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tour in tours %}
+            <tr>
+                <td>{{ tour.date|date('Y-m-d') }}</td>
+                <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
+                <td>{{ tour.appointmentTime|date('H:i') }}</td>
+                <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

@@ -42,8 +42,10 @@ app_chat:
     controller: App\Controller\ChatController::index
 
 app_tour:
-    path: /tour
+    path: /tour/{date}
     controller: App\Controller\TourController::index
+    defaults:
+        date: null
 
 app_transmission:
     path: /transmission
@@ -72,4 +74,3 @@ chat_list:
 chat_detail:
     path: /chat/ok
     controller: App\Controller\ChatController::details
-
