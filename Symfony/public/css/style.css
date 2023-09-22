@@ -319,27 +319,6 @@ button:hover {
 /* ********************************************************************** */
 /*                                Messagerie View                         */
 /* ********************************************************************** */
-
-
-*, *:before, *:after {
-    box-sizing: inherit;
-  }
-  
-  html {
-    box-sizing: border-box;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: "Roboto", sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
   
   .page {
     width: 100%;

@@ -37,7 +37,7 @@
     <tbody>
         {% for tour in tours %}
             <tr>
-                <td>{{ tour.date|date('Y-m-d') }}</td>
+                <td><a href="{{ path('app_edit_tour', { id: tour.id }) }}">{{ tour.date|date('Y-m-d') }}</a></td>
                 <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
                 <td>{{ tour.appointmentTime|date('H:i') }}</td>
                 <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>

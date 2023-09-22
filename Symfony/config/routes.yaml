@@ -50,6 +50,10 @@ app_tour:
     controller: App\Controller\TourController::index
     defaults:
         date: null
+app_edit_tour:
+    path: /tour/edit/{id}
+    controller: App\Controller\TourController::editTour
+    methods: [GET, POST]
 
 app_transmission:
     path: /transmission

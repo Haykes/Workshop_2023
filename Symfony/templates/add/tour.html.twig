@@ -1,13 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}<h1>Ajouter un rendez-vous</h1>{% endblock %}
-
 {% block body %}
     <div class="example-wrapper">
-        <h1>Ajouter un rendez-vous</h1>
+        <a href="{{ path('app_tour') }}" class="back-link">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+{% block title %}<h1>Ajouter rendez-vous</h1>{% endblock %}
+    </div>
+
+    <div class="centered-form">
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        
+        <div class="form-row">
+            <div class="form-group">
+                {{ form_label(form.date, 'Date :') }}
+                {{ form_widget(form.date, { 'attr': {'required': 'required'} }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.appointmentTime, 'Heure du rendez-vous :') }}
+                {{ form_widget(form.appointmentTime, { 'attr': {'required': 'required'} }) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.patient, 'Patient :') }}
+            {{ form_widget(form.patient) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.isCompleted, 'Est terminé ?') }}
+            {{ form_widget(form.isCompleted) }}
+        </div>
+
+        <div class="button-container-center">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+
         {{ form_end(form) }}
     </div>
 {% endblock %}
