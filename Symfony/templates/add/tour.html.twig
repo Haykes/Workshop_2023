@@ -33,6 +33,11 @@
             {{ form_widget(form.isCompleted) }}
         </div>
 
+        <div class="form-group">
+            {{ form_label(form.isUrgent, 'Transmission urgente :') }}
+            {{ form_widget(form.isUrgent) }}
+        </div>
+
         <div class="button-container-center">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>

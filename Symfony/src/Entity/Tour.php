@@ -35,6 +35,10 @@ class Tour
     #[ORM\Column(type: 'string', length: 255)]
     private $timeOfDay;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $isUrgent;
+
+
 
     public function getDate(): ?\DateTimeInterface
     {
@@ -89,4 +93,16 @@ class Tour
         $this->timeOfDay = $timeOfDay;
         return $this;
     }
+
+    public function getIsUrgent(): ?string
+    {
+        return $this->isUrgent;
+    }
+    
+    public function setIsUrgent(?string $isUrgent): self
+    {
+        $this->isUrgent = $isUrgent;
+        return $this;
+    }
+
 }

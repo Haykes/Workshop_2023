@@ -19,30 +19,32 @@
 {% for timeOfDay, tours_set in { 'Matin': tours_morning, 'Midi': tours_noon, 'Soir': tours_evening } %}
     <h2>{{ timeOfDay }}</h2>
     <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Patient</th>
-                <th>Heure du RDV</th>
-                <th>Complété</th>
-            </tr>
-        </thead>
-        <tbody>
-    {% for tour in tours_set %}
+    <thead>
         <tr>
-            <td><a href="{{ path('app_edit_tour', { id: tour.id }) }}">{{ tour.date|date('Y-m-d') }}</a></td>
-            <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
-            <td>{{ tour.appointmentTime|date('H:i') }}</td>
-            <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>
+            <th>Date</th>
+            <th>Patient</th>
+            <th>Heure du RDV</th>
+            <th>Complété</th>
+            <th>Transmission Urgente</th> {# Ajout d'une nouvelle colonne #}
         </tr>
-    {% else %}
-        <tr>
-            <td colspan="4">Aucun rendez-vous trouvé.</td>
-        </tr>
-    {% endfor %}
-</tbody>
-
-    </table>
+    </thead>
+    <tbody>
+{% for tour in tours_set %}
+    {# Si la transmission est urgente, la ligne sera en rouge. #}
+    <tr{{ tour.isUrgent ? ' class=urgent' : '' }}>
+        <td><a href="{{ path('app_edit_tour', { id: tour.id }) }}">{{ tour.date|date('Y-m-d') }}</a></td>
+        <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
+        <td>{{ tour.appointmentTime|date('H:i') }}</td>
+        <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>
+        <td>{{ tour.isUrgent }}</td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="5">Aucun rendez-vous trouvé.</td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
 {% endfor %}
 <style>
     table {
@@ -68,11 +70,17 @@
         margin-top: 20px;
         color: #333;
     }
+    .urgent {
+        color: red;
+    }
+
     /* Fixer la largeur des colonnes */
-    th:nth-child(1), td:nth-child(1) { width: 20%; }
-    th:nth-child(2), td:nth-child(2) { width: 40%; }
-    th:nth-child(3), td:nth-child(3) { width: 20%; }
-    th:nth-child(4), td:nth-child(4) { width: 20%; }
+    th:nth-child(1), td:nth-child(1) { width: 15%; }
+    th:nth-child(2), td:nth-child(2) { width: 35%; }
+    th:nth-child(3), td:nth-child(3) { width: 15%; }
+    th:nth-child(4), td:nth-child(4) { width: 15%; }
+    th:nth-child(5), td:nth-child(5) { width: 20%; }
+
     @media (max-width: 600px) {
         th, td {
             font-size: 14px;
