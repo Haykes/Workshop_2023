@@ -8,14 +8,52 @@
     <a href="{{ path('app_tour', { date: currentDate|date_modify('-1 day')|date('Y-m-d') }) }}">Jour précédent</a>
     <a href="{{ path('app_tour', { date: currentDate|date_modify('+1 day')|date('Y-m-d') }) }}">Jour suivant</a>
 </div>
+
+
+
+{% set tours_morning = tours|filter(tour => tour.appointmentTime|date('H') < 12) %}
+{% set tours_noon = tours|filter(tour => tour.appointmentTime|date('H') >= 12 and tour.appointmentTime|date('H') < 17) %}
+{% set tours_evening = tours|filter(tour => tour.appointmentTime|date('H') >= 17) %}
+
+
+{% for timeOfDay, tours_set in { 'Matin': tours_morning, 'Midi': tours_noon, 'Soir': tours_evening } %}
+    <h2>{{ timeOfDay }}</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Heure du RDV</th>
+                <th>Complété</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for tour in tours_set %}
+        <tr>
+            <td><a href="{{ path('app_edit_tour', { id: tour.id }) }}">{{ tour.date|date('Y-m-d') }}</a></td>
+            <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
+            <td>{{ tour.appointmentTime|date('H:i') }}</td>
+            <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">Aucun rendez-vous trouvé.</td>
+        </tr>
+    {% endfor %}
+</tbody>
+
+    </table>
+{% endfor %}
 <style>
     table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 20px;
     }
     th, td {
         border: 1px solid black;
         padding: 8px 12px;
+        text-align: left;
     }
     th {
         background-color: #f2f2f2;
@@ -23,26 +61,26 @@
     tr:hover {
         background-color: #f5f5f5;
     }
+    tbody tr {
+        height: 50px;
+    }
+    h2 {
+        margin-top: 20px;
+        color: #333;
+    }
+    /* Fixer la largeur des colonnes */
+    th:nth-child(1), td:nth-child(1) { width: 20%; }
+    th:nth-child(2), td:nth-child(2) { width: 40%; }
+    th:nth-child(3), td:nth-child(3) { width: 20%; }
+    th:nth-child(4), td:nth-child(4) { width: 20%; }
+    @media (max-width: 600px) {
+        th, td {
+            font-size: 14px;
+        }
+        tbody tr {
+            height: 40px;
+        }
+    }
 </style>
 
-<table>
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Patient</th>
-            <th>Heure du RDV</th>
-            <th>Complété</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tour in tours %}
-            <tr>
-                <td><a href="{{ path('app_edit_tour', { id: tour.id }) }}">{{ tour.date|date('Y-m-d') }}</a></td>
-                <td>{{ tour.patient.firstname }} {{ tour.patient.lastname }}</td>
-                <td>{{ tour.appointmentTime|date('H:i') }}</td>
-                <td>{{ tour.isCompleted ? 'Oui' : 'Non' }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
 {% endblock %}

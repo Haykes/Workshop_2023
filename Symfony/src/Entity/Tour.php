@@ -32,6 +32,10 @@ class Tour
     #[ORM\Column(type: 'boolean')]
     private $isCompleted = false;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $timeOfDay;
+
+
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -72,6 +76,17 @@ class Tour
     public function setIsCompleted(bool $isCompleted): self
     {
         $this->isCompleted = $isCompleted;
+        return $this;
+    }
+
+    public function getTimeOfDay(): ?string
+    {
+        return $this->timeOfDay;
+    }
+
+    public function setTimeOfDay(string $timeOfDay): self
+    {
+        $this->timeOfDay = $timeOfDay;
         return $this;
     }
 }
