@@ -6,16 +6,23 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Doctrine\ORM\EntityManagerInterface;
 use App\Form\PatientType;
-use App\Entity\Patients; 
+use App\Entity\Patients;
 
 class PatientController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/patient', name: 'app_patient')]
     public function index(): Response
     {
-        $patients = $this->getDoctrine()->getRepository(Patients::class)->findAll();
+        $patients = $this->entityManager->getRepository(Patients::class)->findAll();
 
         return $this->render('patient/index.html.twig', [
             'controller_name' => 'PatientController',
@@ -26,25 +33,16 @@ class PatientController extends AbstractController
     #[Route('/patient/add', name: 'app_patient_add')]
     public function add(Request $request): Response
     {
+        $patient = new Patients();
+        $form = $this->createForm(PatientType::class, $patient);
+        $form->handleRequest($request);
 
-         // Créez un objet de formulaire Symfony
-         $patient = new Patients(); // Assurez-vous de créer la classe Patient ou d'adapter celle que vous utilisez
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($patient);
+            $this->entityManager->flush();
 
-         // Créez un formulaire Symfony à partir de la classe PatientType (à créer)
-         $form = $this->createForm(PatientType::class, $patient);
- 
-         // Gérez la soumission du formulaire
-         $form->handleRequest($request);
-         if ($form->isSubmitted() && $form->isValid()) {
-             // Enregistrez les données en base de données
-             $entityManager = $this->getDoctrine()->getManager();
-             $entityManager->persist($patient);
-             $entityManager->flush();
- 
-             // Redirigez l'utilisateur vers une page de confirmation ou une autre page
-             return $this->redirectToRoute('app_patient');
-         }
-
+            return $this->redirectToRoute('app_patient');
+        }
 
         return $this->render('patient/add.html.twig', [
             'controller_name' => 'PatientController',
@@ -55,7 +53,7 @@ class PatientController extends AbstractController
     #[Route('/patient/view/{id}', name: 'app_patient_view')]
     public function view(int $id): Response
     {
-        $patient = $this->getDoctrine()->getRepository(Patients::class)->find($id);
+        $patient = $this->entityManager->getRepository(Patients::class)->find($id);
 
         if (!$patient) {
             throw $this->createNotFoundException('Patient non trouvé');
@@ -67,12 +65,10 @@ class PatientController extends AbstractController
         ]);
     }
 
-
     #[Route('/patient/edit/{id}', name: 'app_patient_edit')]
     public function edit(int $id, Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $patient = $entityManager->getRepository(Patients::class)->find($id);
+        $patient = $this->entityManager->getRepository(Patients::class)->find($id);
 
         if (!$patient) {
             throw $this->createNotFoundException('Patient introuvable');
@@ -82,7 +78,7 @@ class PatientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             $this->addFlash('success', 'Le patient a été modifié avec succès.');
 
@@ -98,19 +94,17 @@ class PatientController extends AbstractController
     #[Route('/patient/delete/{id}', name: 'app_patient_delete')]
     public function delete(int $id): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $patient = $entityManager->getRepository(Patients::class)->find($id);
+        $patient = $this->entityManager->getRepository(Patients::class)->find($id);
 
         if (!$patient) {
             throw $this->createNotFoundException('Patient introuvable');
         }
 
-        $entityManager->remove($patient);
-        $entityManager->flush();
+        $this->entityManager->remove($patient);
+        $this->entityManager->flush();
 
         $this->addFlash('success', 'Le patient a été supprimé avec succès.');
 
         return $this->redirectToRoute('app_patient');
     }
-
 }
